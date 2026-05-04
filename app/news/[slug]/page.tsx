@@ -1,11 +1,11 @@
-import {sanityClient} from '@/lib/sanity/client'
+import {sanityFetch} from '@/lib/sanity/client'
 import {newsBySlugQuery, newsListQuery} from '@/lib/sanity/queries'
 import type {NewsItem} from '@/lib/sanity/types'
 
 export const revalidate = 120
 
 export async function generateStaticParams() {
-  const news = await sanityClient.fetch<NewsItem[]>(newsListQuery)
+  const news = await sanityFetch<NewsItem[]>(newsListQuery, undefined, [])
   return news.map((item) => ({slug: item.slug}))
 }
 
@@ -14,9 +14,11 @@ export default async function NewsDetailPage({
 }: {
   params: {slug: string}
 }) {
-  const news = await sanityClient.fetch<NewsItem | null>(newsBySlugQuery, {
-    slug: params.slug,
-  })
+  const news = await sanityFetch<NewsItem | null>(
+    newsBySlugQuery,
+    {slug: params.slug},
+    null
+  )
   if (!news) {
     return <main className="mx-auto max-w-4xl px-6 py-16">Not found</main>
   }

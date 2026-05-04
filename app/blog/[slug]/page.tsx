@@ -1,11 +1,11 @@
-import {sanityClient} from '@/lib/sanity/client'
+import {sanityFetch} from '@/lib/sanity/client'
 import {blogBySlugQuery, blogListQuery} from '@/lib/sanity/queries'
 import type {BlogItem} from '@/lib/sanity/types'
 
 export const revalidate = 120
 
 export async function generateStaticParams() {
-  const blogs = await sanityClient.fetch<BlogItem[]>(blogListQuery)
+  const blogs = await sanityFetch<BlogItem[]>(blogListQuery, undefined, [])
   return blogs.map((item) => ({slug: item.slug}))
 }
 
@@ -14,9 +14,11 @@ export default async function BlogDetailPage({
 }: {
   params: {slug: string}
 }) {
-  const blog = await sanityClient.fetch<BlogItem | null>(blogBySlugQuery, {
-    slug: params.slug,
-  })
+  const blog = await sanityFetch<BlogItem | null>(
+    blogBySlugQuery,
+    {slug: params.slug},
+    null
+  )
   if (!blog) {
     return <main className="mx-auto max-w-4xl px-6 py-16">Not found</main>
   }

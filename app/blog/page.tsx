@@ -1,11 +1,11 @@
-import {sanityClient} from '@/lib/sanity/client'
+import {sanityFetch} from '@/lib/sanity/client'
 import {blogListQuery} from '@/lib/sanity/queries'
 import type {BlogItem} from '@/lib/sanity/types'
 
 export const revalidate = 120
 
 export default async function BlogPage() {
-  const blogs = await sanityClient.fetch<BlogItem[]>(blogListQuery)
+  const blogs = await sanityFetch<BlogItem[]>(blogListQuery, undefined, [])
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
       <h1 className="text-3xl font-semibold">Blog</h1>

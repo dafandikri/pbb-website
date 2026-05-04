@@ -1,11 +1,11 @@
-import {sanityClient} from '@/lib/sanity/client'
+import {sanityFetch} from '@/lib/sanity/client'
 import {newsListQuery} from '@/lib/sanity/queries'
 import type {NewsItem} from '@/lib/sanity/types'
 
 export const revalidate = 120
 
 export default async function NewsPage() {
-  const news = await sanityClient.fetch<NewsItem[]>(newsListQuery)
+  const news = await sanityFetch<NewsItem[]>(newsListQuery, undefined, [])
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
       <h1 className="text-3xl font-semibold">News</h1>
