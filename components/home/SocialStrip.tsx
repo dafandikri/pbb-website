@@ -1,7 +1,10 @@
 const socials = [
-  {label: 'Instagram', href: 'https://instagram.com'},
-  {label: 'X / Twitter', href: 'https://x.com'},
-  {label: 'YouTube', href: 'https://youtube.com'},
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/partaibulanbintang.official',
+  },
+  {label: 'X / Twitter', href: 'https://x.com/officialdpp_pbb'},
+  {label: 'YouTube', href: 'https://www.youtube.com/@pbbchannelofficial'},
 ]
 
 export function SocialStrip() {
@@ -10,7 +13,13 @@ export function SocialStrip() {
       <p className="text-sm text-[#6b6b6b]">Ikuti update kami di media sosial.</p>
       <div className="flex gap-4 text-sm">
         {socials.map((item) => (
-          <a key={item.label} className="underline" href={item.href}>
+          <a
+            key={item.label}
+            className="underline"
+            href={item.href}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             {item.label}
           </a>
         ))}
