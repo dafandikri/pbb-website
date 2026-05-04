@@ -10,19 +10,21 @@ export const hasSanityConfig =
   projectId !== 'example' &&
   dataset !== 'example'
 
-export const sanityClient = createClient({
-  projectId,
-  dataset,
-  apiVersion: '2025-03-04',
-  useCdn: true,
-})
+const sanityClient = hasSanityConfig
+  ? createClient({
+      projectId,
+      dataset,
+      apiVersion: '2025-03-04',
+      useCdn: true,
+    })
+  : null
 
 export async function sanityFetch<T>(
   query: string,
   params: QueryParams | undefined,
   fallback: T
 ): Promise<T> {
-  if (!hasSanityConfig) {
+  if (!hasSanityConfig || !sanityClient) {
     return fallback
   }
 
