@@ -1,5 +1,53 @@
 # CLAUDE.md — PBB Website
 
+## Core Development Philosophy
+
+### 1. Leave It Better Than You Found It
+
+When working on any feature, if you encounter code that could be improved and the refactoring is small (< 100 lines), **do it now**. For larger refactorings, create a backlog issue.
+
+### 2. YAGNI (You Ain't Gonna Need It)
+
+Solve today's problem with the simplest solution that works. Avoid premature abstraction and overengineering. Keep code flexible for future changes but don't build features "just in case".
+
+### 3. Move Fast, Break Things (Pre-Launch)
+
+We haven't launched yet. Don't worry about backwards compatibility unless explicitly requested. Make bold changes that improve the codebase without fear of breaking existing users.
+
+### 4. Complexity Over Time Estimates
+
+Estimate task complexity, not hours:
+- **Small (S)**: < 100 lines, clear solution
+- **Medium (M)**: 100-500 lines, some exploration needed
+- **Large (L)**: 500+ lines, requires design/planning
+- **Extra Large (XL)**: Major architectural changes
+
+### 5. Package Manager
+
+Always use `pnpm` — never npm/npx.
+
+## Critical Development Practices (MUST FOLLOW)
+
+- **ALWAYS read the code thoroughly and dig deeper** — Don't trust surface-level assumptions. When fixing bugs, trace through the entire flow.
+- **NEVER use `any` type in TypeScript** — Always infer or define proper types.
+- **PREFER editing/refactoring existing files over creating new ones** — Check if functionality already exists first.
+- **PREFER integration tests over unit tests** — Integration tests catch real-world issues and validate the entire flow.
+- **When user says "I'm not convinced", dig deeper** — The first solution was likely superficial.
+- **Keep error handling simple** — Pre-launch. Simple messages, no error codes, no translations.
+- **ALWAYS use test/mock/dummy markers in test data** — Mock API keys, tokens, and secrets MUST include `test`, `mock`, `dummy`, `example`, or `placeholder` in the value.
+
+## Git Operations Policy (CRITICAL)
+
+**NEVER perform git operations automatically. ALWAYS wait for explicit user instruction.**
+
+- **NEVER commit automatically** — Only create commits when explicitly asked.
+- **NEVER push automatically** — Only push when explicitly asked.
+- **NEVER create PRs automatically** — Only create PRs when explicitly asked.
+- **ALWAYS ask for confirmation** — When user requests git operations, confirm what you're about to do.
+
+Valid requests: "commit this", "push to remote", "create a PR".
+DO NOT commit for: completing a feature, fixing bugs, "leave it better" refactoring, end of conversation.
+
 ## Project Overview
 
 Company-profile website for Partai Bulan Bintang. Targets curious audiences and younger voters. Built with Next.js + Sanity CMS + Tailwind CSS.
@@ -101,6 +149,51 @@ Scopes: `home`, `news`, `events`, `blog`, `sanity`, `join`, `layout`, `infra`
 - Schema types: `page`, `news`, `event`, `blog`, `faq`, `pressKit`, `socialEmbed`, `joinForm`
 - Content editors access via Sanity Manage dashboard or `/studio`
 - `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` in `.env.local`
+
+## Problem-Solving Approach
+
+### When Debugging Issues
+
+1. **Read the entire flow** — Don't stop at the surface level.
+2. **Question initial assumptions** — If user says "I'm not convinced", your first solution was likely superficial.
+3. **Verify fixes at the right layer** — Frontend bug? Check if it's actually a backend issue first.
+
+### When Writing Code
+
+1. **Check for existing implementations first** — Don't create duplicate functionality.
+2. **Type safety is non-negotiable** — TypeScript: no `any`.
+3. **Test at the right level** — Integration tests for features, unit tests for pure logic.
+
+## Common Pitfalls to Avoid
+
+### General
+
+1. **NEVER auto-commit/push/create PRs** — Only perform git operations when explicitly requested.
+2. **Don't create new files unnecessarily** — Extend existing implementations.
+3. **Don't trust surface-level code reading** — Always trace the complete flow.
+
+### Frontend
+
+4. **Never use `any` type** — Always find and use the proper type.
+5. **Don't use 'use client' unless needed** — Prefer Server Components by default.
+6. **Don't manually manage server state** — Let Next.js ISR handle caching and revalidation.
+7. **Don't hardcode secrets** — Use `.env.local` files.
+
+## Code Quality Checklist
+
+- [ ] TypeScript compiles without errors (`pnpm build`)
+- [ ] ESLint passes (`pnpm lint`)
+- [ ] Tests pass
+- [ ] Follow existing patterns in codebase
+
+## Remember
+
+Focus and momentum are crucial. Every line of code should either:
+1. Directly improve user experience
+2. Enhance development velocity
+3. Reduce technical risk
+
+**"Perfect is the enemy of shipped."** — Ship fast, iterate based on feedback.
 
 ## AI Tool Instructions
 
