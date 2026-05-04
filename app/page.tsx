@@ -1,10 +1,19 @@
+import {HeroSection} from '@/components/home/HeroSection'
+import {JoinBlock} from '@/components/home/JoinBlock'
+import {LatestUpdates} from '@/components/home/LatestUpdates'
+import {ProgramHighlights} from '@/components/home/ProgramHighlights'
+import {SocialStrip} from '@/components/home/SocialStrip'
+import {ValueProps} from '@/components/home/ValueProps'
+
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-4xl font-semibold">Partai Bulan Bintang</h1>
-      <p className="mt-4 text-lg text-[#6b6b6b]">
-        Website resmi akan segera hadir.
-      </p>
+    <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16">
+      <HeroSection />
+      <ValueProps />
+      <ProgramHighlights />
+      <LatestUpdates />
+      <JoinBlock />
+      <SocialStrip />
     </main>
   )
 }
