@@ -1,5 +1,5 @@
 import {NextResponse} from 'next/server'
-import {supabase} from '@/lib/supabase/client'
+import {hasSupabaseConfig, supabase} from '@/lib/supabase/client'
 import {sendJoinNotification} from '@/lib/email/sender'
 
 type JoinPayload = {
@@ -25,6 +25,10 @@ export async function POST(request: Request) {
 
   if (!isValid(payload)) {
     return NextResponse.json({error: 'invalid'}, {status: 400})
+  }
+
+  if (!hasSupabaseConfig || !supabase) {
+    return NextResponse.json({error: 'unconfigured'}, {status: 503})
   }
 
   const {error} = await supabase.from('join_requests').insert(payload)
