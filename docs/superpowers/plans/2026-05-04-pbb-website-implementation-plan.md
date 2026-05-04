@@ -12,11 +12,11 @@
 
 ## File Structure
 
-- Create: `package.json`
-- Create: `pnpm-lock.yaml`
-- Create: `next.config.ts`
-- Create: `app/layout.tsx`
-- Create: `app/page.tsx`
+- Modify: `package.json`
+- Modify: `pnpm-lock.yaml`
+- Modify: `next.config.ts`
+- Modify: `app/layout.tsx`
+- Modify: `app/page.tsx`
 - Create: `app/news/page.tsx`
 - Create: `app/news/[slug]/page.tsx`
 - Create: `app/events/page.tsx`
@@ -29,7 +29,7 @@
 - Create: `app/faq/page.tsx`
 - Create: `app/join/page.tsx`
 - Create: `app/api/join/route.ts`
-- Create: `app/styles/globals.css`
+- Modify: `app/globals.css`
 - Create: `components/layout/Header.tsx`
 - Create: `components/layout/Footer.tsx`
 - Create: `components/home/Hero.tsx`
@@ -43,7 +43,7 @@
 - Create: `lib/supabase/client.ts`
 - Create: `lib/email/sender.ts`
 - Create: `sanity.config.ts`
-- Create: `sanity/schema.ts`
+- Create: `sanity/schema.ts` (remove if unused)
 - Create: `sanity/schemas/page.ts`
 - Create: `sanity/schemas/news.ts`
 - Create: `sanity/schemas/event.ts`
@@ -54,34 +54,22 @@
 - Create: `sanity/schemas/joinForm.ts`
 - Create: `sanity/schemas/index.ts`
 - Create: `.env.example`
-- Create: `README.md`
+- Modify: `README.md`
 
 ---
 
-### Task 1: Initialize Next.js app and dependencies
+### Task 1: Align base layout and globals (Tailwind enabled)
 
 **Files:**
-- Create: `package.json`
-- Create: `next.config.ts`
-- Create: `app/layout.tsx`
-- Create: `app/page.tsx`
-- Create: `app/styles/globals.css`
-- Create: `README.md`
+- Modify: `app/layout.tsx`
+- Modify: `app/page.tsx`
+- Modify: `app/globals.css`
 
-- [ ] **Step 1: Initialize Next.js with pnpm**
-
-Run:
-```bash
-pnpm create next-app@latest . --ts --app --eslint --tailwind=false --src-dir=false --import-alias "@/*"
-```
-
-Expected: Project scaffolded with `app` directory and TypeScript support.
-
-- [ ] **Step 2: Create base layout and global styles**
+- [ ] **Step 1: Update base layout**
 
 Edit `app/layout.tsx`:
 ```tsx
-import './styles/globals.css'
+import './globals.css'
 
 export const metadata = {
   title: 'Partai Bulan Bintang',
@@ -95,14 +83,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body>{children}</body>
+      <body className="bg-[#f6f2ea] text-[#111111]">
+        {children}
+      </body>
     </html>
   )
 }
 ```
 
-Create `app/styles/globals.css`:
+- [ ] **Step 2: Update global styles**
+
+Edit `app/globals.css`:
 ```css
+@import "tailwindcss";
+
 :root {
   color-scheme: light;
   --color-bg: #f6f2ea;
@@ -121,38 +115,29 @@ Create `app/styles/globals.css`:
 body {
   margin: 0;
   font-family: var(--font-body);
-  color: var(--color-ink);
-  background: radial-gradient(circle at top, #fff7ec, var(--color-bg));
 }
 ```
 
-- [ ] **Step 3: Create placeholder home page**
+- [ ] **Step 3: Update placeholder home page**
 
 Edit `app/page.tsx`:
 ```tsx
 export default function HomePage() {
   return (
-    <main style={{ padding: '48px' }}>
-      <h1>Partai Bulan Bintang</h1>
-      <p>Website resmi akan segera hadir.</p>
+    <main className="mx-auto max-w-4xl px-6 py-16">
+      <h1 className="text-4xl font-semibold">Partai Bulan Bintang</h1>
+      <p className="mt-4 text-lg text-[#6b6b6b]">
+        Website resmi akan segera hadir.
+      </p>
     </main>
   )
 }
 ```
 
-- [ ] **Step 4: Run dev server**
-
-Run:
-```bash
-pnpm dev
-```
-
-Expected: Site loads at http://localhost:3000.
-
-- [ ] **Step 5: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
-git commit -m "chore: initialize next app"
+git commit -m "chore: align base layout"
 ```
 
 ---
