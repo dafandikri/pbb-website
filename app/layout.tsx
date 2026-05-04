@@ -1,4 +1,6 @@
 import './globals.css'
+import {Header} from '@/components/layout/Header'
+import {Footer} from '@/components/layout/Footer'
 
 export const metadata = {
   title: 'Partai Bulan Bintang',
@@ -12,8 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className="bg-[#f6f2ea] text-[#111111]">
-        {children}
+      <body className="flex min-h-screen flex-col bg-[#f6f2ea] text-[#111111]">
+        <Header />
+        <div className="flex-1">{children}</div>
+        <Footer />
       </body>
     </html>
   )
