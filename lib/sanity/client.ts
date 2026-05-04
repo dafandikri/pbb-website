@@ -26,5 +26,9 @@ export async function sanityFetch<T>(
     return fallback
   }
 
-  return sanityClient.fetch<T>(query, params)
+  if (params) {
+    return sanityClient.fetch<T>(query, params)
+  }
+
+  return sanityClient.fetch<T>(query)
 }
